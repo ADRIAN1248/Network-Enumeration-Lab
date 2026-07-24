@@ -1,0 +1,89 @@
+# TCP SYN STEALTH Scan
+
+## Objective
+Identify open TCP ports on the target host (192.168.1.114) using nmap's TCP SYN Stealth Scan Technique.
+
+## Command used
+nmap -sS -v 192.168.1.114
+
+-sS: Nmap sends SYN packets to the target ports and analyses the response without completing the TCP three-way handshake
+
+# Results
+The scan identified 23 open TCP ports on the target host
+
+─(kali㉿kali)-[~]
+└─$ nmap -sS -v 192.168.1.114
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-07-24 03:02 EDT
+Initiating ARP Ping Scan at 03:02
+Scanning 192.168.1.114 [1 port]
+Completed ARP Ping Scan at 03:02, 0.07s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 03:02
+Completed Parallel DNS resolution of 1 host. at 03:02, 0.00s elapsed
+Initiating SYN Stealth Scan at 03:02
+Scanning 192.168.1.114 [1000 ports]
+Discovered open port 445/tcp on 192.168.1.114
+Discovered open port 3306/tcp on 192.168.1.114
+Discovered open port 23/tcp on 192.168.1.114
+Discovered open port 5900/tcp on 192.168.1.114
+Discovered open port 53/tcp on 192.168.1.114
+Discovered open port 25/tcp on 192.168.1.114
+Discovered open port 80/tcp on 192.168.1.114
+Discovered open port 21/tcp on 192.168.1.114
+Discovered open port 139/tcp on 192.168.1.114
+Discovered open port 22/tcp on 192.168.1.114
+Discovered open port 111/tcp on 192.168.1.114
+Discovered open port 1524/tcp on 192.168.1.114
+Discovered open port 5432/tcp on 192.168.1.114
+Discovered open port 2121/tcp on 192.168.1.114
+Discovered open port 6667/tcp on 192.168.1.114
+Discovered open port 6000/tcp on 192.168.1.114
+Discovered open port 1099/tcp on 192.168.1.114
+Discovered open port 8009/tcp on 192.168.1.114
+Discovered open port 512/tcp on 192.168.1.114
+Discovered open port 2049/tcp on 192.168.1.114
+Discovered open port 514/tcp on 192.168.1.114
+Discovered open port 513/tcp on 192.168.1.114
+Discovered open port 8180/tcp on 192.168.1.114
+Completed SYN Stealth Scan at 03:02, 0.33s elapsed (1000 total ports)
+Nmap scan report for 192.168.1.114
+Host is up (0.0035s latency).
+Not shown: 977 closed tcp ports (reset)
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+23/tcp   open  telnet
+25/tcp   open  smtp
+53/tcp   open  domain
+80/tcp   open  http
+111/tcp  open  rpcbind
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+512/tcp  open  exec
+513/tcp  open  login
+514/tcp  open  shell
+1099/tcp open  rmiregistry
+1524/tcp open  ingreslock
+2049/tcp open  nfs
+2121/tcp open  ccproxy-ftp
+3306/tcp open  mysql
+5432/tcp open  postgresql
+5900/tcp open  vnc
+6000/tcp open  X11
+6667/tcp open  irc
+8009/tcp open  ajp13
+8180/tcp open  unknown
+MAC Address: 08:00:27:AB:37:40 (Oracle VirtualBox virtual NIC)
+
+Read data files from: /usr/share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 0.49 seconds
+           Raw packets sent: 1001 (44.028KB) | Rcvd: 1001 (40.120KB)
+
+## Analysis
+The SYN scan successfully identified the same open ports found during the TCP Connect scan
+
+The main difference is that SYN scan does not complete the TCP handshake, making it faster and less detectable compared to a TCP Connect Scan.
+
+The target host appears to expose multiple services, including web services, remote access services, file sharing services and database services.
+
+# Conclusion
+The TCP SYN Stealth Scan successfully enumerated open TCP ports on the 192.168.1.114. This information can be used for further service enumeration and vulnerability assessment.
