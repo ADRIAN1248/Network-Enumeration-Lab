@@ -7,12 +7,13 @@ This project demonstrates the network enumeration phase of a cybersecurity asses
 - Discover active hosts on the network
 - Perform TCP port scanning
 - Identify running services and versions
--Enumerate FTP and SMTP services
--Document findings and their security implications
+- Enumerate FTP and SMTP services
+- Document findings and their security implications
 
 ## Lab Environment
 -Kali Linux (Scanning Machine)
 -Metasploitable 2 (Target Machine)
+-pfsense(to provide internet connection as we are using Internal network)
 -Oracle VirtualBox
 -Internal Network
 
