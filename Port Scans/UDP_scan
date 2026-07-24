@@ -1,0 +1,93 @@
+# UDP Port Scan
+
+## Objective
+Identify open UDP ports and services running on the target host (192.168.1.114) using nmap's UDP scan technique
+
+## Command used
+nmap -sU -v 192.168.1.114
+
+-sU: Perfoms a UDP scan to identify open UDP services.
+
+# How UDP scan works
+Unlike TCP, UDP does not use a three-way handshake. Nmap sends UDP packets to target ports and analyses the responses.
+
+Responses are interpreted as:
+- Response receieved: Port is open
+- ICMP Port is unreachable response: Port is closed
+- No response: Port is open|filtered
+
+## Results
+                                                                                                                                                           
+┌──(kali㉿kali)-[~]
+└─$ nmap -sU -v 192.168.1.114
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-07-24 03:38 EDT
+Initiating ARP Ping Scan at 03:38
+Scanning 192.168.1.114 [1 port]
+Completed ARP Ping Scan at 03:38, 0.04s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 03:38
+Completed Parallel DNS resolution of 1 host. at 03:38, 0.00s elapsed
+Initiating UDP Scan at 03:38
+Scanning 192.168.1.114 [1000 ports]
+Increasing send delay for 192.168.1.114 from 0 to 50 due to max_successful_tryno increase to 4
+Increasing send delay for 192.168.1.114 from 50 to 100 due to max_successful_tryno increase to 5
+Increasing send delay for 192.168.1.114 from 100 to 200 due to max_successful_tryno increase to 6
+Increasing send delay for 192.168.1.114 from 200 to 400 due to max_successful_tryno increase to 7
+Increasing send delay for 192.168.1.114 from 400 to 800 due to 11 out of 11 dropped probes since last increase.
+UDP Scan Timing: About 4.13% done; ETC: 03:51 (0:11:59 remaining)
+UDP Scan Timing: About 7.01% done; ETC: 03:53 (0:13:29 remaining)
+Discovered open port 111/udp on 192.168.1.114
+UDP Scan Timing: About 26.20% done; ETC: 03:55 (0:12:43 remaining)
+Discovered open port 2049/udp on 192.168.1.114
+UDP Scan Timing: About 31.64% done; ETC: 03:55 (0:11:49 remaining)
+UDP Scan Timing: About 37.21% done; ETC: 03:56 (0:10:55 remaining)
+UDP Scan Timing: About 42.57% done; ETC: 03:56 (0:10:00 remaining)
+UDP Scan Timing: About 47.89% done; ETC: 03:56 (0:09:03 remaining)
+UDP Scan Timing: About 52.88% done; ETC: 03:55 (0:08:07 remaining)
+Discovered open port 137/udp on 192.168.1.114
+UDP Scan Timing: About 58.01% done; ETC: 03:55 (0:07:15 remaining)
+UDP Scan Timing: About 63.49% done; ETC: 03:56 (0:06:20 remaining)
+UDP Scan Timing: About 68.84% done; ETC: 03:56 (0:05:25 remaining)
+UDP Scan Timing: About 73.90% done; ETC: 03:56 (0:04:33 remaining)
+UDP Scan Timing: About 78.94% done; ETC: 03:56 (0:03:40 remaining)
+UDP Scan Timing: About 84.09% done; ETC: 03:56 (0:02:47 remaining)
+Discovered open port 53/udp on 192.168.1.114
+UDP Scan Timing: About 89.22% done; ETC: 03:56 (0:01:53 remaining)
+UDP Scan Timing: About 94.52% done; ETC: 03:56 (0:00:58 remaining)
+Completed UDP Scan at 03:56, 1083.23s elapsed (1000 total ports)
+Nmap scan report for 192.168.1.114
+Host is up (0.0015s latency).
+Not shown: 993 closed udp ports (port-unreach)
+PORT     STATE         SERVICE
+53/udp   open          domain
+68/udp   open|filtered dhcpc
+69/udp   open|filtered tftp
+111/udp  open          rpcbind
+137/udp  open          netbios-ns
+138/udp  open|filtered netbios-dgm
+2049/udp open          nfs
+MAC Address: 08:00:27:AB:37:40 (Oracle VirtualBox virtual NIC)
+
+Read data files from: /usr/share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 1083.37 seconds
+           Raw packets sent: 1478 (74.142KB) | Rcvd: 1097 (86.347KB)
+
+# Analysis
+The UDP scan identified several UDP services that were not visible during TCP-only scanning.
+
+Important discoveries include:
+- UDP port 53
+Indicates a DNS service is running
+
+-UDP port 111
+Indicates RPCBind is available, which is commonly associated with RPC services.
+
+-UDP port 2049
+Indicates NFS (Network File System), whihc may allow network file sharing.
+
+-UDP port 137
+Indicates NetBIOS name services
+
+This scan took significantly longer than TCP scans because UDP does not establish a connection. Nmap must wait for responses or timeouts to determine the state of each port.
+
+## Conclusion
+The UDP scan revealed additional services on the target host that would not have been discovered through the TCP scanning alone. Performing both the TCP and UDP scans provides a more complete view of the target's attack surface.
