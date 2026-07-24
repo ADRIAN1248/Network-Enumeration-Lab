@@ -1,0 +1,43 @@
+# Host Discovery using nmap
+
+## Objective 
+Identify active hosts on the 192.168.1.0/24 network using the nmap host discovery.
+
+## Command used
+nmap -sn 192.168.1.0/24
+
+## Command Explanantion
+ -sn
+ Perfoms host discovery only. It checks which hosts are online without scanning their ports.
+
+ 192.168.1.0/24 
+ Scans all IP addresses from 192.168.1.1 to 192.168.1.254 within the subnet
+
+ ## Results
+ The scan identified 3 active hosts on the network
+
+ (kali㉿kali)-[~]
+└─$ nmap -sn 192.168.1.0/24
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-07-24 02:15 EDT
+Nmap scan report for pfsense.localdomain (192.168.1.1)
+Host is up (0.0012s latency).
+MAC Address: 08:00:27:D8:60:C9 (Oracle VirtualBox virtual NIC)
+Nmap scan report for 192.168.1.114 (192.168.1.114)
+Host is up (0.0017s latency).
+MAC Address: 08:00:27:AB:37:40 (Oracle VirtualBox virtual NIC)
+Nmap scan report for 192.168.1.111
+Host is up.
+Nmap done: 256 IP addresses (3 hosts up) scanned in 2.11 seconds
+
+## Analysis
+Nmap successfully discovered three active devices on the network.
+The results show that the devices with MAC addresses beginning with 08:00:27 are VirtualBox virtual machines.
+
+The host 192.168.1.1 was identified as pfsense, whihc is acting as the network gateway or firewall.
+The other discovered hosts are likey virtual machines connected to the same network.
+
+## Conclusion
+The namp host discovery scan succesffuly identified active hosts within the 192.168.1.0/24 subnet. 
+These discovered IP addresses can be used for further enumeration such as service and vulnerability scanning.
+
+
