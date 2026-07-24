@@ -12,5 +12,5 @@ This folder contains different Nmap scanning techniques used to identify open po
 ## Each scan includes:
 - Command used
 - Explanation of the technique
-- Screenshot of results
+- Results
 - Analysis of findings
