@@ -17,7 +17,7 @@ Responses are interpreted as:
 - No response: Port is open|filtered
 
 ## Results
-                                                                                                                                                           
+                                                                                                                           
 ┌──(kali㉿kali)-[~]
 └─$ nmap -sU -v 192.168.1.114
 Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-07-24 03:38 EDT
@@ -90,4 +90,6 @@ Indicates NetBIOS name services
 This scan took significantly longer than TCP scans because UDP does not establish a connection. Nmap must wait for responses or timeouts to determine the state of each port.
 
 ## Conclusion
-The UDP scan revealed additional services on the target host that would not have been discovered through the TCP scanning alone. Performing both the TCP and UDP scans provides a more complete view of the target's attack surface.
+The UDP scan revealed additional services on the target host that would not have been discovered through the TCP scanning alone. 
+
+Performing both the TCP and UDP scans provides a more complete view of the target's attack surface.
